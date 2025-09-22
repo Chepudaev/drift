@@ -1,0 +1,429 @@
+{
+	"info": {
+		"_postman_id": "drift-api-collection",
+		"name": "Drift API Collection",
+		"description": "Коллекция для тестирования API endpoints приложения Drift",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Получить список всех пользователей"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						},
+						"description": "Получить пользователя по ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Иван Петров\",\n  \"firstName\": \"Иван\",\n  \"lastName\": \"Петров\",\n  \"email\": \"ivan.petrov@example.com\",\n  \"phone\": \"+79123456789\",\n  \"instagram\": \"@ivan_petrov\",\n  \"profilePhotoUrl\": \"https://example.com/profile.jpg\",\n  \"motto\": \"Быстрее, выше, сильнее!\",\n  \"officialPhotoUrl\": \"https://example.com/official.jpg\",\n  \"sponsors\": \"Nike, Adidas, Puma\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Создать нового пользователя"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Иван Петров (обновлено)\",\n  \"firstName\": \"Иван\",\n  \"lastName\": \"Петров\",\n  \"email\": \"ivan.petrov.updated@example.com\",\n  \"phone\": \"+79123456789\",\n  \"instagram\": \"@ivan_petrov_updated\",\n  \"profilePhotoUrl\": \"https://example.com/profile_updated.jpg\",\n  \"motto\": \"Обновленный девиз!\",\n  \"officialPhotoUrl\": \"https://example.com/official_updated.jpg\",\n  \"sponsors\": \"Nike, Adidas, Puma, Reebok\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						},
+						"description": "Обновить пользователя"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						},
+						"description": "Удалить пользователя"
+					},
+					"response": []
+				}
+			],
+			"description": "Операции с пользователями"
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Get All Cars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/cars",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cars"
+							]
+						},
+						"description": "Получить список всех автомобилей"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Car by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/cars/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cars",
+								"1"
+							]
+						},
+						"description": "Получить автомобиль по ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cars by User ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/cars/user/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cars",
+								"user",
+								"1"
+							]
+						},
+						"description": "Получить автомобили конкретного пользователя"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Car",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"brand\": \"Toyota\",\n  \"model\": \"Supra\",\n  \"horsepower\": 340,\n  \"userPhotoUrl\": \"https://example.com/car_user.jpg\",\n  \"moderatorPhotoUrl\": \"https://example.com/car_moderator.jpg\",\n  \"year\": 2020,\n  \"color\": \"Белый\",\n  \"carClass\": \"Спорткар\",\n  \"color1\": \"Белый\",\n  \"color2\": \"Черный\",\n  \"color3\": \"Красный\",\n  \"userId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cars",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cars"
+							]
+						},
+						"description": "Создать новый автомобиль"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Car",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"brand\": \"Toyota\",\n  \"model\": \"Supra GR\",\n  \"horsepower\": 380,\n  \"userPhotoUrl\": \"https://example.com/car_user_updated.jpg\",\n  \"moderatorPhotoUrl\": \"https://example.com/car_moderator_updated.jpg\",\n  \"year\": 2021,\n  \"color\": \"Черный\",\n  \"carClass\": \"Спорткар\",\n  \"color1\": \"Черный\",\n  \"color2\": \"Белый\",\n  \"color3\": \"Серебристый\",\n  \"userId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cars/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cars",
+								"1"
+							]
+						},
+						"description": "Обновить автомобиль"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Car",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/cars/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cars",
+								"1"
+							]
+						},
+						"description": "Удалить автомобиль"
+					},
+					"response": []
+				}
+			],
+			"description": "Операции с автомобилями"
+		},
+		{
+			"name": "Greeting",
+			"item": [
+				{
+					"name": "Get Greeting",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/greeting",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"greeting"
+							]
+						},
+						"description": "Получить приветственное сообщение"
+					},
+					"response": []
+				}
+			],
+			"description": "Тестовый endpoint"
+		},
+		{
+			"name": "Error Testing",
+			"item": [
+				{
+					"name": "Get Non-existent User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"999"
+							]
+						},
+						"description": "Тест ошибки 404 для несуществующего пользователя"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Non-existent Car",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/cars/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cars",
+								"999"
+							]
+						},
+						"description": "Тест ошибки 404 для несуществующего автомобиля"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User with Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"\",\n  \"firstName\": \"\",\n  \"lastName\": \"\",\n  \"email\": \"invalid-email\",\n  \"phone\": \"123\",\n  \"instagram\": \"@invalid_instagram\",\n  \"profilePhotoUrl\": \"\",\n  \"motto\": \"\",\n  \"officialPhotoUrl\": \"\",\n  \"sponsors\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Тест валидации с некорректными данными"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Car with Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"brand\": \"\",\n  \"model\": \"\",\n  \"horsepower\": -1,\n  \"userPhotoUrl\": \"\",\n  \"moderatorPhotoUrl\": \"\",\n  \"year\": 1800,\n  \"color\": \"\",\n  \"carClass\": \"\",\n  \"color1\": \"\",\n  \"color2\": \"\",\n  \"color3\": \"\",\n  \"userId\": null\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cars",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cars"
+							]
+						},
+						"description": "Тест валидации с некорректными данными автомобиля"
+					},
+					"response": []
+				}
+			],
+			"description": "Тестирование обработки ошибок"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
