@@ -55,7 +55,6 @@ public class UserService {
         }
         
         // Обновляем поля
-        existingUser.setName(updateUserDto.getName());
         existingUser.setFirstName(updateUserDto.getFirstName());
         existingUser.setLastName(updateUserDto.getLastName());
         existingUser.setEmail(updateUserDto.getEmail());

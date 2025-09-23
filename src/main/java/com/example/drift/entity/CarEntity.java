@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "cars")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -48,9 +50,6 @@ public class CarEntity {
     @Column(name = "color")
     private String color;
 
-    @Column(name = "car_class")
-    private String carClass;
-
     @Column(name = "color1", nullable = false)
     @NotBlank(message = "Цвет1 обязателен для заполнения")
     private String color1;
@@ -64,5 +63,13 @@ public class CarEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "car_tyre_classes",
+        joinColumns = @JoinColumn(name = "car_id"),
+        inverseJoinColumns = @JoinColumn(name = "tyre_class_id")
+    )
+    private Set<TyreClass> tyreClasses;
 
 }

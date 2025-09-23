@@ -23,10 +23,6 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    @NotBlank(message = "Полное имя обязательно для заполнения")
-    private String name;
-
     @Column(name = "first_name", nullable = false)
     @NotBlank(message = "Имя обязательно для заполнения")
     private String firstName;

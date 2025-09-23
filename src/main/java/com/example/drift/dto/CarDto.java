@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,4 +48,6 @@ public class CarDto {
     private String color3;
 
     private Long userId;
+
+    private Set<String> tyreClasses;
 }

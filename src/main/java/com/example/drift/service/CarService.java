@@ -69,7 +69,6 @@ public class CarService {
         existingCar.setModeratorPhotoUrl(updateCarDto.getModeratorPhotoUrl());
         existingCar.setYear(updateCarDto.getYear());
         existingCar.setColor(updateCarDto.getColor());
-        existingCar.setCarClass(updateCarDto.getCarClass());
         existingCar.setColor1(updateCarDto.getColor1());
         existingCar.setColor2(updateCarDto.getColor2());
         existingCar.setColor3(updateCarDto.getColor3());
