@@ -567,6 +567,271 @@
 			"description": "Операции с конфигурациями трасс"
 		},
 		{
+			"name": "Face To Face",
+			"item": [
+				{
+					"name": "Get All Face To Face",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face"
+							]
+						},
+						"description": "Получить список всех FaceToFace"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Face To Face by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face",
+								"1"
+							]
+						},
+						"description": "Получить FaceToFace по ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Face To Face with Rounds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face/1/with-rounds",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face",
+								"1",
+								"with-rounds"
+							]
+						},
+						"description": "Получить FaceToFace с раундами"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Face To Face",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startTime\": \"10:30AM\",\n  \"userPhoto1\": \"https://example.com/user1_photo.jpg\",\n  \"userPhoto2\": \"https://example.com/user2_photo.jpg\",\n  \"user1Id\": 1,\n  \"user2Id\": 2,\n  \"autoPhoto1\": \"https://example.com/auto1_photo.jpg\",\n  \"autoPhoto2\": \"https://example.com/auto2_photo.jpg\",\n  \"autoUser1Id\": 1,\n  \"autoUser2Id\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face"
+							]
+						},
+						"description": "Создать новое FaceToFace"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Face To Face",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startTime\": \"11:00AM\",\n  \"userPhoto1\": \"https://example.com/user1_photo_updated.jpg\",\n  \"userPhoto2\": \"https://example.com/user2_photo_updated.jpg\",\n  \"user1Id\": 1,\n  \"user2Id\": 2,\n  \"autoPhoto1\": \"https://example.com/auto1_photo_updated.jpg\",\n  \"autoPhoto2\": \"https://example.com/auto2_photo_updated.jpg\",\n  \"autoUser1Id\": 1,\n  \"autoUser2Id\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face",
+								"1"
+							]
+						},
+						"description": "Обновить FaceToFace"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Face To Face",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face",
+								"1"
+							]
+						},
+						"description": "Удалить FaceToFace"
+					},
+					"response": []
+				}
+			],
+			"description": "Операции с FaceToFace"
+		},
+		{
+			"name": "Rounds",
+			"item": [
+				{
+					"name": "Get All Rounds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/rounds",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rounds"
+							]
+						},
+						"description": "Получить список всех раундов"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Round by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/rounds/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rounds",
+								"1"
+							]
+						},
+						"description": "Получить раунд по ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Round",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roundNumber\": 1,\n  \"userId1\": 1,\n  \"userId2\": 2,\n  \"userWinnerId\": 1,\n  \"faceToFaceId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/rounds",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rounds"
+							]
+						},
+						"description": "Создать новый раунд"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Round",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roundNumber\": 1,\n  \"userId1\": 1,\n  \"userId2\": 2,\n  \"userWinnerId\": 2,\n  \"faceToFaceId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/rounds/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rounds",
+								"1"
+							]
+						},
+						"description": "Обновить раунд"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Round",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/rounds/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rounds",
+								"1"
+							]
+						},
+						"description": "Удалить раунд"
+					},
+					"response": []
+				}
+			],
+			"description": "Операции с раундами"
+		},
+		{
 			"name": "Error Testing",
 			"item": [
 				{
@@ -760,6 +1025,102 @@
 							]
 						},
 						"description": "Тест валидации с некорректными данными конфигурации трассы"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Non-existent Face To Face",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face",
+								"999"
+							]
+						},
+						"description": "Тест ошибки 404 для несуществующего FaceToFace"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Non-existent Round",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/rounds/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rounds",
+								"999"
+							]
+						},
+						"description": "Тест ошибки 404 для несуществующего раунда"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Face To Face with Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startTime\": \"\",\n  \"userPhoto1\": \"\",\n  \"userPhoto2\": \"\",\n  \"user1Id\": null,\n  \"user2Id\": null,\n  \"autoPhoto1\": \"\",\n  \"autoPhoto2\": \"\",\n  \"autoUser1Id\": null,\n  \"autoUser2Id\": null\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face"
+							]
+						},
+						"description": "Тест валидации с некорректными данными FaceToFace"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Round with Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roundNumber\": null,\n  \"userId1\": null,\n  \"userId2\": null,\n  \"userWinnerId\": null,\n  \"faceToFaceId\": null\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/rounds",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rounds"
+							]
+						},
+						"description": "Тест валидации с некорректными данными раунда"
 					},
 					"response": []
 				}
