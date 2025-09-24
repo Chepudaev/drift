@@ -37,6 +37,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
     
+    @ExceptionHandler(TrackNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleTrackNotFoundException(TrackNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Трасса не найдена");
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+    
+    @ExceptionHandler(TrackConfigNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleTrackConfigNotFoundException(TrackConfigNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Конфигурация трассы не найдена");
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, Object> response = new HashMap<>();
