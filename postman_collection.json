@@ -297,6 +297,276 @@
 			"description": "Тестовый endpoint"
 		},
 		{
+			"name": "Tracks",
+			"item": [
+				{
+					"name": "Get All Tracks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks"
+							]
+						},
+						"description": "Получить список всех трасс"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Track by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"1"
+							]
+						},
+						"description": "Получить трассу по ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Track with Configs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/1/with-configs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"1",
+								"with-configs"
+							]
+						},
+						"description": "Получить трассу с конфигурациями"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Track",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"state\": \"Калифорния\",\n  \"address\": \"123 Drift Street, Los Angeles, CA 90210\",\n  \"thumbnailUrl\": \"https://example.com/track_thumbnail.jpg\",\n  \"instructionUrl\": \"https://example.com/track_instructions.pdf\",\n  \"notes\": \"Отличная трасса для начинающих дрифтеров\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tracks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks"
+							]
+						},
+						"description": "Создать новую трассу"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Track",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"state\": \"Калифорния\",\n  \"address\": \"123 Drift Street, Los Angeles, CA 90210\",\n  \"thumbnailUrl\": \"https://example.com/track_thumbnail_updated.jpg\",\n  \"instructionUrl\": \"https://example.com/track_instructions_updated.pdf\",\n  \"notes\": \"Обновленная трасса для продвинутых дрифтеров\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tracks/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"1"
+							]
+						},
+						"description": "Обновить трассу"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Track",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"1"
+							]
+						},
+						"description": "Удалить трассу"
+					},
+					"response": []
+				}
+			],
+			"description": "Операции с трассами"
+		},
+		{
+			"name": "Track Configs",
+			"item": [
+				{
+					"name": "Get All Track Configs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/configs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"configs"
+							]
+						},
+						"description": "Получить список всех конфигураций трасс"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Track Config by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/configs/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"configs",
+								"1"
+							]
+						},
+						"description": "Получить конфигурацию трассы по ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Track Config",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"config\": \"Конфигурация для начинающих: ширина трассы 8м, длина 200м, повороты 90 градусов\",\n  \"trackId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tracks/configs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"configs"
+							]
+						},
+						"description": "Создать новую конфигурацию трассы"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Track Config",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"config\": \"Обновленная конфигурация для продвинутых: ширина трассы 6м, длина 300м, повороты 180 градусов\",\n  \"trackId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tracks/configs/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"configs",
+								"1"
+							]
+						},
+						"description": "Обновить конфигурацию трассы"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Track Config",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/configs/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"configs",
+								"1"
+							]
+						},
+						"description": "Удалить конфигурацию трассы"
+					},
+					"response": []
+				}
+			],
+			"description": "Операции с конфигурациями трасс"
+		},
+		{
 			"name": "Error Testing",
 			"item": [
 				{
@@ -336,6 +606,47 @@
 							]
 						},
 						"description": "Тест ошибки 404 для несуществующего автомобиля"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Non-existent Track",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"999"
+							]
+						},
+						"description": "Тест ошибки 404 для несуществующей трассы"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Non-existent Track Config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/configs/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"configs",
+								"999"
+							]
+						},
+						"description": "Тест ошибки 404 для несуществующей конфигурации трассы"
 					},
 					"response": []
 				},
@@ -394,6 +705,63 @@
 						"description": "Тест валидации с некорректными данными автомобиля"
 					},
 					"response": []
+				},
+				{
+					"name": "Create Track with Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"state\": \"\",\n  \"address\": \"\",\n  \"thumbnailUrl\": \"\",\n  \"instructionUrl\": \"\",\n  \"notes\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tracks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks"
+							]
+						},
+						"description": "Тест валидации с некорректными данными трассы"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Track Config with Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"config\": \"\",\n  \"trackId\": null\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tracks/configs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"configs"
+							]
+						},
+						"description": "Тест валидации с некорректными данными конфигурации трассы"
+					},
+					"response": []
 				}
 			],
 			"description": "Тестирование обработки ошибок"
@@ -427,3 +795,4 @@
 		}
 	]
 }
+
