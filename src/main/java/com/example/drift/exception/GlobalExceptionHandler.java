@@ -69,6 +69,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
     
+    @ExceptionHandler(ScheduleNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleScheduleNotFoundException(ScheduleNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Расписание не найдено");
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+    
+    @ExceptionHandler(ScheduleElementNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleScheduleElementNotFoundException(ScheduleElementNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Элемент расписания не найден");
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, Object> response = new HashMap<>();
