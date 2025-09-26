@@ -5,6 +5,7 @@ import com.example.drift.entity.TrackConfigEntity;
 import com.example.drift.entity.TrackEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public interface TrackMapper {
     TrackMapper INSTANCE = Mappers.getMapper(TrackMapper.class);
     
     @Mapping(target = "trackConfigs", ignore = true)
+    @Named("trackToDto")
     TrackDto toDto(TrackEntity entity);
     
     @Mapping(target = "trackConfigs", source = "trackConfigs")

@@ -53,6 +53,10 @@ public class FaceToFaceEntity {
     @JoinColumn(name = "auto_user2_id")
     private CarEntity autoUser2;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_id")
+    private EventEntity event;
+
     @OneToMany(mappedBy = "faceToFace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RoundEntity> rounds;
 }

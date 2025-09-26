@@ -85,6 +85,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
     
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleEventNotFoundException(EventNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Событие не найдено");
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, Object> response = new HashMap<>();

@@ -6,6 +6,7 @@ import com.example.drift.dto.UpdateScheduleDto;
 import com.example.drift.entity.ScheduleEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public interface ScheduleMapper {
     
     ScheduleMapper INSTANCE = Mappers.getMapper(ScheduleMapper.class);
     
+    @Named("scheduleToDto")
     ScheduleDto toDto(ScheduleEntity entity);
     
     @Mapping(target = "id", ignore = true)

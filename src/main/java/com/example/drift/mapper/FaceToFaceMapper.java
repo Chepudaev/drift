@@ -5,6 +5,7 @@ import com.example.drift.entity.FaceToFaceEntity;
 import com.example.drift.entity.RoundEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public interface FaceToFaceMapper {
     @Mapping(target = "user2Id", source = "user2.id")
     @Mapping(target = "autoUser1Id", source = "autoUser1.id")
     @Mapping(target = "autoUser2Id", source = "autoUser2.id")
+    @Named("faceToFaceToDto")
     FaceToFaceDto toDto(FaceToFaceEntity entity);
     
     @Mapping(target = "rounds", source = "rounds")
