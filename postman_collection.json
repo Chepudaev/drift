@@ -832,6 +832,329 @@
 			"description": "Операции с раундами"
 		},
 		{
+			"name": "Schedules",
+			"item": [
+				{
+					"name": "Get All Schedules",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedules",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules"
+							]
+						},
+						"description": "Получить список всех расписаний"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schedule by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedules/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"1"
+							]
+						},
+						"description": "Получить расписание по ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Schedule",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Расписание соревнований\",\n  \"description\": \"Основное расписание дрифт-соревнований на выходные\",\n  \"scheduleElements\": [\n    {\n      \"startTime\": \"9:00AM\",\n      \"endTime\": \"10:00AM\",\n      \"description\": \"Регистрация участников\"\n    },\n    {\n      \"startTime\": \"10:00AM\",\n      \"endTime\": \"10:30AM\",\n      \"description\": \"Технический осмотр автомобилей\"\n    },\n    {\n      \"startTime\": \"10:30AM\",\n      \"endTime\": \"12:00PM\",\n      \"description\": \"Практические заезды\"\n    },\n    {\n      \"startTime\": \"12:00PM\",\n      \"endTime\": \"1:00PM\",\n      \"description\": \"Обеденный перерыв\"\n    },\n    {\n      \"startTime\": \"1:00PM\",\n      \"endTime\": \"5:00PM\",\n      \"description\": \"Основные соревнования\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/schedules",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules"
+							]
+						},
+						"description": "Создать новое расписание"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Schedule",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Обновленное расписание соревнований\",\n  \"description\": \"Обновленное расписание дрифт-соревнований на выходные\",\n  \"scheduleElements\": [\n    {\n      \"startTime\": \"8:30AM\",\n      \"endTime\": \"9:30AM\",\n      \"description\": \"Регистрация участников (обновлено)\"\n    },\n    {\n      \"startTime\": \"9:30AM\",\n      \"endTime\": \"10:00AM\",\n      \"description\": \"Технический осмотр автомобилей\"\n    },\n    {\n      \"startTime\": \"10:00AM\",\n      \"endTime\": \"11:30AM\",\n      \"description\": \"Практические заезды\"\n    },\n    {\n      \"startTime\": \"11:30AM\",\n      \"endTime\": \"12:30PM\",\n      \"description\": \"Обеденный перерыв\"\n    },\n    {\n      \"startTime\": \"12:30PM\",\n      \"endTime\": \"6:00PM\",\n      \"description\": \"Основные соревнования (продлено)\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/schedules/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"1"
+							]
+						},
+						"description": "Полностью обновить расписание"
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Schedule",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Частично обновленное расписание\",\n  \"description\": \"Частично обновленное описание расписания\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/schedules/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"1"
+							]
+						},
+						"description": "Частично обновить расписание"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Schedule",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedules/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"1"
+							]
+						},
+						"description": "Удалить расписание"
+					},
+					"response": []
+				}
+			],
+			"description": "Операции с расписаниями"
+		},
+		{
+			"name": "Schedule Elements",
+			"item": [
+				{
+					"name": "Get All Schedule Elements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedule-elements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedule-elements"
+							]
+						},
+						"description": "Получить список всех элементов расписания"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schedule Element by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedule-elements/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedule-elements",
+								"1"
+							]
+						},
+						"description": "Получить элемент расписания по ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schedule Elements by Schedule ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedule-elements/schedule/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedule-elements",
+								"schedule",
+								"1"
+							]
+						},
+						"description": "Получить элементы конкретного расписания"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Schedule Element",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startTime\": \"6:00PM\",\n  \"endTime\": \"7:00PM\",\n  \"description\": \"Церемония награждения победителей\",\n  \"scheduleId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/schedule-elements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedule-elements"
+							]
+						},
+						"description": "Создать новый элемент расписания"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Schedule Element",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startTime\": \"6:30PM\",\n  \"endTime\": \"7:30PM\",\n  \"description\": \"Обновленная церемония награждения победителей\",\n  \"scheduleId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/schedule-elements/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedule-elements",
+								"1"
+							]
+						},
+						"description": "Полностью обновить элемент расписания"
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Schedule Element",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Частично обновленное описание элемента\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/schedule-elements/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedule-elements",
+								"1"
+							]
+						},
+						"description": "Частично обновить элемент расписания"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Schedule Element",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedule-elements/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedule-elements",
+								"1"
+							]
+						},
+						"description": "Удалить элемент расписания"
+					},
+					"response": []
+				}
+			],
+			"description": "Операции с элементами расписания"
+		},
+		{
 			"name": "Error Testing",
 			"item": [
 				{
@@ -1121,6 +1444,102 @@
 							]
 						},
 						"description": "Тест валидации с некорректными данными раунда"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Non-existent Schedule",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedules/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"999"
+							]
+						},
+						"description": "Тест ошибки 404 для несуществующего расписания"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Non-existent Schedule Element",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedule-elements/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedule-elements",
+								"999"
+							]
+						},
+						"description": "Тест ошибки 404 для несуществующего элемента расписания"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Schedule with Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"\",\n  \"description\": \"\",\n  \"scheduleElements\": [\n    {\n      \"startTime\": \"25:00AM\",\n      \"endTime\": \"invalid-time\",\n      \"description\": \"\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/schedules",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules"
+							]
+						},
+						"description": "Тест валидации с некорректными данными расписания"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Schedule Element with Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startTime\": \"25:00AM\",\n  \"endTime\": \"invalid-time\",\n  \"description\": \"\",\n  \"scheduleId\": 999\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/schedule-elements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedule-elements"
+							]
+						},
+						"description": "Тест валидации с некорректными данными элемента расписания"
 					},
 					"response": []
 				}
