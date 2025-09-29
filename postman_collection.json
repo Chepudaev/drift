@@ -1155,6 +1155,128 @@
 			"description": "Операции с элементами расписания"
 		},
 		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get All Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						},
+						"description": "Получить список всех событий"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"1"
+							]
+						},
+						"description": "Получить событие по ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"trackId\": 1,\n  \"scheduleId\": 1,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						},
+						"description": "Создать новое событие"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2024-03-16\",\n  \"trackId\": 1,\n  \"scheduleId\": 1,\n  \"driverLimit\": 25,\n  \"spectatorLimit\": 150,\n  \"eventType\": \"Обновленное дрифт-соревнование\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/events/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"1"
+							]
+						},
+						"description": "Обновить событие"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"1"
+							]
+						},
+						"description": "Удалить событие"
+					},
+					"response": []
+				}
+			],
+			"description": "Операции с событиями"
+		},
+		{
 			"name": "Error Testing",
 			"item": [
 				{
@@ -1540,6 +1662,110 @@
 							]
 						},
 						"description": "Тест валидации с некорректными данными элемента расписания"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Non-existent Event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"999"
+							]
+						},
+						"description": "Тест ошибки 404 для несуществующего события"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event with Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": null,\n  \"trackId\": null,\n  \"scheduleId\": null,\n  \"driverLimit\": -1,\n  \"spectatorLimit\": -5,\n  \"eventType\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						},
+						"description": "Тест валидации с некорректными данными события"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event with Non-existent Track",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"trackId\": 999,\n  \"scheduleId\": 1,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						},
+						"description": "Тест создания события с несуществующей трассой"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event with Non-existent Schedule",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"trackId\": 1,\n  \"scheduleId\": 999,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						},
+						"description": "Тест создания события с несуществующим расписанием"
 					},
 					"response": []
 				}
