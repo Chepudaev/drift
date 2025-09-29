@@ -60,6 +60,12 @@ public class TrackController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{id}/copy")
+    public ResponseEntity<TrackDto> copyTrack(@PathVariable Long id) {
+        TrackDto copiedTrack = trackService.copyTrack(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(copiedTrack);
+    }
+
     // Методы для TrackConfigEntity
 
     @GetMapping("/configs")

@@ -81,5 +81,21 @@ public class TrackService {
         }
         trackRepository.deleteById(id);
     }
+
+    public TrackDto copyTrack(Long id) {
+        TrackEntity originalTrack = trackRepository.findById(id)
+                .orElseThrow(() -> new TrackNotFoundException("Трасса с ID " + id + " не найдена"));
+
+        // Создаем новую трассу с теми же данными, но без ID
+        TrackEntity copiedTrack = new TrackEntity();
+        copiedTrack.setState(originalTrack.getState());
+        copiedTrack.setAddress(originalTrack.getAddress());
+        copiedTrack.setThumbnailUrl(originalTrack.getThumbnailUrl());
+        copiedTrack.setInstructionUrl(originalTrack.getInstructionUrl());
+        copiedTrack.setNotes(originalTrack.getNotes());
+
+        TrackEntity savedTrack = trackRepository.save(copiedTrack);
+        return trackMapper.toDto(savedTrack);
+    }
 }
 

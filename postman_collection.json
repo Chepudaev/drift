@@ -435,6 +435,27 @@
 						"description": "Удалить трассу"
 					},
 					"response": []
+				},
+				{
+					"name": "Copy Track",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/1/copy",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"1",
+								"copy"
+							]
+						},
+						"description": "Скопировать трассу по ID (создать точную копию с новым ID)"
+					},
+					"response": []
 				}
 			],
 			"description": "Операции с трассами"
@@ -1766,6 +1787,27 @@
 							]
 						},
 						"description": "Тест создания события с несуществующим расписанием"
+					},
+					"response": []
+				},
+				{
+					"name": "Copy Non-existent Track",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tracks/999/copy",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"999",
+								"copy"
+							]
+						},
+						"description": "Тест ошибки 404 при попытке скопировать несуществующую трассу"
 					},
 					"response": []
 				}
