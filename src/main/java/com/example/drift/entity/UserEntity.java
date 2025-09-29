@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -55,6 +56,20 @@ public class UserEntity {
 
     @Column(name = "sponsors", length = 1000)
     private String sponsors;
+
+    @Column(name = "username", nullable = false, unique = true)
+    @NotBlank(message = "Имя пользователя обязательно для заполнения")
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    @NotBlank(message = "Пароль обязателен для заполнения")
+    private String password;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Set<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CarEntity> cars;

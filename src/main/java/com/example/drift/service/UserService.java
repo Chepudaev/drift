@@ -2,12 +2,16 @@ package com.example.drift.service;
 
 import com.example.drift.dto.CreateUserDto;
 import com.example.drift.dto.UserDto;
+import com.example.drift.entity.Role;
 import com.example.drift.entity.UserEntity;
 import com.example.drift.exception.UserAlreadyExistsException;
 import com.example.drift.exception.UserNotFoundException;
 import com.example.drift.mapper.UserMapper;
 import com.example.drift.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +51,21 @@ public class UserService {
     public UserDto updateUser(Long id, CreateUserDto updateUserDto) {
         UserEntity existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Пользователь с ID " + id + " не найден"));
+        
+        // Проверяем права доступа
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        UserEntity currentUser = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new RuntimeException("Текущий пользователь не найден"));
+        
+        // USER и JUDGE могут изменять только свои данные, ADMIN и MANAGER - любые
+        boolean canModify = currentUser.getRoles().contains(Role.ROLE_ADMIN) || 
+                           currentUser.getRoles().contains(Role.ROLE_MANAGER) ||
+                           existingUser.getId().equals(currentUser.getId());
+        
+        if (!canModify) {
+            throw new RuntimeException("Недостаточно прав для изменения данных пользователя");
+        }
         
         // Проверяем, не используется ли email другим пользователем
         if (!existingUser.getEmail().equals(updateUserDto.getEmail()) && 
