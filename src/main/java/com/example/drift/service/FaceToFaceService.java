@@ -3,11 +3,13 @@ package com.example.drift.service;
 import com.example.drift.dto.CreateFaceToFaceDto;
 import com.example.drift.dto.FaceToFaceDto;
 import com.example.drift.entity.CarEntity;
+import com.example.drift.entity.EventEntity;
 import com.example.drift.entity.FaceToFaceEntity;
 import com.example.drift.entity.UserEntity;
 import com.example.drift.exception.FaceToFaceNotFoundException;
 import com.example.drift.mapper.FaceToFaceMapper;
 import com.example.drift.repository.CarRepository;
+import com.example.drift.repository.EventRepository;
 import com.example.drift.repository.FaceToFaceRepository;
 import com.example.drift.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class FaceToFaceService {
     private final FaceToFaceRepository faceToFaceRepository;
     private final UserRepository userRepository;
     private final CarRepository carRepository;
+    private final EventRepository eventRepository;
     private final FaceToFaceMapper faceToFaceMapper;
 
     @Transactional(readOnly = true)
@@ -126,6 +129,12 @@ public class FaceToFaceService {
             CarEntity autoUser2 = carRepository.findById(faceToFaceDto.getAutoUser2Id())
                     .orElseThrow(() -> new RuntimeException("Автомобиль с ID " + faceToFaceDto.getAutoUser2Id() + " не найден"));
             existingFaceToFace.setAutoUser2(autoUser2);
+        }
+        
+        if (faceToFaceDto.getEventId() != null) {
+            EventEntity event = eventRepository.findById(faceToFaceDto.getEventId())
+                    .orElseThrow(() -> new RuntimeException("Событие с ID " + faceToFaceDto.getEventId() + " не найдено"));
+            existingFaceToFace.setEvent(event);
         }
 
         FaceToFaceEntity updatedFaceToFace = faceToFaceRepository.save(existingFaceToFace);

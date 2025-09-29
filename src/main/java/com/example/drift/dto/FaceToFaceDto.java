@@ -27,6 +27,7 @@ public class FaceToFaceDto {
     private String autoPhoto2;
     private Long autoUser1Id;
     private Long autoUser2Id;
+    private Long eventId;
 
     private List<RoundDto> rounds;
 }

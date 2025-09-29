@@ -20,6 +20,7 @@ public interface FaceToFaceMapper {
     @Mapping(target = "user2Id", source = "user2.id")
     @Mapping(target = "autoUser1Id", source = "autoUser1.id")
     @Mapping(target = "autoUser2Id", source = "autoUser2.id")
+    @Mapping(target = "eventId", source = "event.id")
     @Named("faceToFaceToDto")
     FaceToFaceDto toDto(FaceToFaceEntity entity);
     
@@ -28,6 +29,7 @@ public interface FaceToFaceMapper {
     @Mapping(target = "user2Id", source = "user2.id")
     @Mapping(target = "autoUser1Id", source = "autoUser1.id")
     @Mapping(target = "autoUser2Id", source = "autoUser2.id")
+    @Mapping(target = "eventId", source = "event.id")
     FaceToFaceDto toDtoWithRounds(FaceToFaceEntity entity);
     
     @Mapping(target = "rounds", ignore = true)

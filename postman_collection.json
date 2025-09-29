@@ -690,7 +690,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"startTime\": \"11:00AM\",\n  \"userPhoto1\": \"https://example.com/user1_photo_updated.jpg\",\n  \"userPhoto2\": \"https://example.com/user2_photo_updated.jpg\",\n  \"user1Id\": 1,\n  \"user2Id\": 2,\n  \"autoPhoto1\": \"https://example.com/auto1_photo_updated.jpg\",\n  \"autoPhoto2\": \"https://example.com/auto2_photo_updated.jpg\",\n  \"autoUser1Id\": 1,\n  \"autoUser2Id\": 2\n}"
+							"raw": "{\n  \"startTime\": \"11:00AM\",\n  \"userPhoto1\": \"https://example.com/user1_photo_updated.jpg\",\n  \"userPhoto2\": \"https://example.com/user2_photo_updated.jpg\",\n  \"user1Id\": 1,\n  \"user2Id\": 2,\n  \"autoPhoto1\": \"https://example.com/auto1_photo_updated.jpg\",\n  \"autoPhoto2\": \"https://example.com/auto2_photo_updated.jpg\",\n  \"autoUser1Id\": 1,\n  \"autoUser2Id\": 2,\n  \"eventId\": 1\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/face-to-face/1",
@@ -703,9 +703,77 @@
 								"1"
 							]
 						},
-						"description": "Обновить FaceToFace"
+						"description": "Обновить FaceToFace (включая eventId)"
 					},
 					"response": []
+				},
+				{
+					"name": "Update Face To Face Event Only",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"eventId\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face",
+								"1"
+							]
+						},
+						"description": "Обновить только eventId для FaceToFace"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"eventId\": 2\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/face-to-face/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"face-to-face",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": 1,\n  \"startTime\": \"10:30AM\",\n  \"userPhoto1\": \"https://example.com/user1_photo.jpg\",\n  \"userPhoto2\": \"https://example.com/user2_photo.jpg\",\n  \"user1Id\": 1,\n  \"user2Id\": 2,\n  \"autoPhoto1\": \"https://example.com/auto1_photo.jpg\",\n  \"autoPhoto2\": \"https://example.com/auto2_photo.jpg\",\n  \"autoUser1Id\": 1,\n  \"autoUser2Id\": 2,\n  \"eventId\": 2,\n  \"rounds\": null\n}"
+						}
+					]
 				},
 				{
 					"name": "Delete Face To Face",
@@ -1580,6 +1648,35 @@
 							]
 						},
 						"description": "Тест валидации с некорректными данными FaceToFace"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Face To Face with Non-existent Event",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"eventId\": 999\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/face-to-face/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"face-to-face",
+								"1"
+							]
+						},
+						"description": "Тест ошибки при обновлении FaceToFace с несуществующим eventId"
 					},
 					"response": []
 				},
