@@ -94,4 +94,35 @@ public class ScheduleService {
         }
         scheduleRepository.deleteById(id);
     }
+
+    public ScheduleDto copySchedule(Long id) {
+        ScheduleEntity originalSchedule = scheduleRepository.findByIdWithElements(id)
+                .orElseThrow(() -> new ScheduleNotFoundException("Расписание с ID " + id + " не найдено"));
+
+        // Создаем новое расписание с теми же данными, но без ID
+        ScheduleEntity copiedSchedule = new ScheduleEntity();
+        copiedSchedule.setName(originalSchedule.getName() + " (копия)");
+        copiedSchedule.setDescription(originalSchedule.getDescription());
+
+        // Сохраняем новое расписание
+        ScheduleEntity savedSchedule = scheduleRepository.save(copiedSchedule);
+
+        // Копируем элементы расписания, если они есть
+        if (originalSchedule.getScheduleElements() != null && !originalSchedule.getScheduleElements().isEmpty()) {
+            List<ScheduleElementEntity> copiedElements = originalSchedule.getScheduleElements().stream()
+                    .map(originalElement -> {
+                        ScheduleElementEntity copiedElement = new ScheduleElementEntity();
+                        copiedElement.setStartTime(originalElement.getStartTime());
+                        copiedElement.setEndTime(originalElement.getEndTime());
+                        copiedElement.setDescription(originalElement.getDescription());
+                        copiedElement.setSchedule(savedSchedule);
+                        return copiedElement;
+                    })
+                    .toList();
+
+            scheduleElementRepository.saveAll(copiedElements);
+        }
+
+        return scheduleMapper.toDto(savedSchedule);
+    }
 }

@@ -999,6 +999,27 @@
 						"description": "Удалить расписание"
 					},
 					"response": []
+				},
+				{
+					"name": "Copy Schedule",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedules/1/copy",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"1",
+								"copy"
+							]
+						},
+						"description": "Скопировать расписание по ID (создать точную копию с новым ID и всеми элементами расписания)"
+					},
+					"response": []
 				}
 			],
 			"description": "Операции с расписаниями"
@@ -1808,6 +1829,27 @@
 							]
 						},
 						"description": "Тест ошибки 404 при попытке скопировать несуществующую трассу"
+					},
+					"response": []
+				},
+				{
+					"name": "Copy Non-existent Schedule",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/schedules/999/copy",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"schedules",
+								"999",
+								"copy"
+							]
+						},
+						"description": "Тест ошибки 404 при попытке скопировать несуществующее расписание"
 					},
 					"response": []
 				}

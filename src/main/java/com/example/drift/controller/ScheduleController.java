@@ -55,4 +55,10 @@ public class ScheduleController {
         scheduleService.deleteSchedule(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/copy")
+    public ResponseEntity<ScheduleDto> copySchedule(@PathVariable Long id) {
+        ScheduleDto copiedSchedule = scheduleService.copySchedule(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(copiedSchedule);
+    }
 }
