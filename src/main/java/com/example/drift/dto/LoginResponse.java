@@ -15,4 +15,14 @@ public class LoginResponse {
     private String username;
     private Set<Role> roles;
     private String message;
+    private String accessToken;
+    private String refreshToken;
+    
+    // Конструктор для обратной совместимости (без токенов)
+    public LoginResponse(Long userId, String username, Set<Role> roles, String message) {
+        this.userId = userId;
+        this.username = username;
+        this.roles = roles;
+        this.message = message;
+    }
 }

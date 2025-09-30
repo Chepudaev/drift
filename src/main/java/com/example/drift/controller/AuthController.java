@@ -2,17 +2,15 @@ package com.example.drift.controller;
 
 import com.example.drift.dto.LoginRequest;
 import com.example.drift.dto.LoginResponse;
+import com.example.drift.dto.RefreshTokenRequest;
 import com.example.drift.entity.Role;
 import com.example.drift.entity.UserEntity;
 import com.example.drift.repository.UserRepository;
-import com.example.drift.service.CustomUserDetailsService;
+import com.example.drift.service.JwtService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,33 +23,15 @@ public class AuthController {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final CustomUserDetailsService userDetailsService;
+    private final JwtService jwtService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
-        // Проверяем пользователя
-        UserEntity user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("Неверные учетные данные"));
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Неверные учетные данные");
-        }
-
-        // Создаем аутентификацию
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                user.getUsername(), 
-                user.getPassword(),
-                userDetailsService.loadUserByUsername(user.getUsername()).getAuthorities()
+        LoginResponse response = jwtService.authenticateAndGenerateTokens(
+                request.getUsername(), 
+                request.getPassword()
         );
-        
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        return ResponseEntity.ok(new LoginResponse(
-                user.getId(),
-                user.getUsername(),
-                user.getRoles(),
-                "Успешная аутентификация"
-        ));
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/register")
@@ -79,8 +59,18 @@ public class AuthController {
         ));
     }
 
+    @PostMapping("/refresh")
+    public ResponseEntity<LoginResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
+        LoginResponse response = jwtService.refreshTokens(request.getRefreshToken());
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/me")
     public ResponseEntity<LoginResponse> getCurrentUser(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("Пользователь не аутентифицирован. Необходимо передать валидный JWT токен в заголовке Authorization: Bearer <token>");
+        }
+
         UserEntity user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
 
