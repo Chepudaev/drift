@@ -31,28 +31,37 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, 
                                   FilterChain filterChain) throws ServletException, IOException {
+        System.out.println("=== JWT FILTER CALLED ===");
+        System.out.println("Request: " + request.getMethod() + " " + request.getRequestURI());
+        log.info("=== JWT Filter: Processing request {} {}", request.getMethod(), request.getRequestURI());
+        
         try {
             String jwt = parseJwt(request);
-            log.debug("JWT token parsed: {}", jwt != null ? "present" : "null");
+            log.info("JWT token parsed: {}", jwt != null ? "present" : "null");
             
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
-                log.debug("JWT token valid for user: {}", username);
+                log.info("JWT token valid for user: {}", username);
 
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                log.info("User authorities: {}", userDetails.getAuthorities());
+                
                 UsernamePasswordAuthenticationToken authentication = 
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                log.debug("Authentication set for user: {}", username);
+                log.info("Authentication set for user: {} with roles: {}", username, userDetails.getAuthorities());
             } else if (jwt != null) {
-                log.debug("JWT token invalid");
+                log.warn("JWT token invalid");
+            } else {
+                log.info("No JWT token found in request");
             }
         } catch (Exception e) {
-            log.error("Cannot set user authentication: {}", e.getMessage());
+            log.error("Cannot set user authentication: {}", e.getMessage(), e);
         }
 
+        log.info("=== JWT Filter: Continuing to next filter");
         filterChain.doFilter(request, response);
     }
 

@@ -4,6 +4,7 @@ import com.example.drift.entity.Role;
 import com.example.drift.filter.JwtAuthenticationFilter;
 import com.example.drift.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
+@Slf4j
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
@@ -29,6 +31,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        System.out.println("=== SECURITY CONFIG LOADING ===");
+        System.out.println("POST /api/face-to-face should be blocked for ROLE_USER");
+        System.out.println("JWT Filter: " + jwtAuthenticationFilter.getClass().getName());
+        log.info("=== Configuring Security Filter Chain ===");
+        log.info("Security rules:");
+        log.info("1. /api/auth/** - permitAll");
+        log.info("2. /api/greeting - permitAll");
+        log.info("3. /api/test/public - permitAll");
+        log.info("4. GET /api/** - authenticated");
+        log.info("5. POST /api/rounds - hasRole(JUDGE)");
+        log.info("6. PATCH /api/face-to-face/* - hasRole(JUDGE)");
+        log.info("7. /api/** - hasAnyRole(ADMIN, MANAGER)");
+        log.info("8. anyRequest - authenticated");
+        
         http
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -37,6 +53,13 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/greeting").permitAll()
                 .requestMatchers("/api/test/public").permitAll()
+                    .requestMatchers("/swagger-ui/*").permitAll()
+                
+                // OpenAPI и Swagger UI endpoints
+                .requestMatchers("/api-docs/**").permitAll()
+                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers("/swagger-ui.html").permitAll()
+                .requestMatchers("/v3/api-docs/**").permitAll()
                 
                 // GET запросы доступны всем аутентифицированным пользователям
                 .requestMatchers("GET", "/api/**").authenticated()
@@ -55,6 +78,7 @@ public class SecurityConfig {
             .authenticationProvider(authenticationProvider())
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
+        log.info("=== Security Filter Chain configured successfully ===");
         return http.build();
     }
 
