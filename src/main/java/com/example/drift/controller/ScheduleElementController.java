@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/schedule-elements")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 @Tag(name = "Элементы расписания", description = "API для управления элементами расписаний")
 @SecurityRequirement(name = "Bearer Authentication")
 public class ScheduleElementController {

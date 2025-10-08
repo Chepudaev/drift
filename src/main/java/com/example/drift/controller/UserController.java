@@ -21,7 +21,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 @Tag(name = "Пользователи", description = "API для управления пользователями")
 @SecurityRequirement(name = "Bearer Authentication")
 public class UserController {

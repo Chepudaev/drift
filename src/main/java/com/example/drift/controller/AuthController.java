@@ -25,6 +25,8 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = {"http://localhost:63342", "http://127.0.0.1:63342"},
+        allowCredentials = "true")
 @RequiredArgsConstructor
 @Tag(name = "Аутентификация", description = "API для аутентификации и регистрации пользователей")
 public class AuthController {

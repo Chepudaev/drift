@@ -21,7 +21,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/cars")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 @Tag(name = "Автомобили", description = "API для управления автомобилями")
 @SecurityRequirement(name = "Bearer Authentication")
 public class CarController {

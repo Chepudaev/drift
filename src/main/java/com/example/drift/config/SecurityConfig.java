@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -46,14 +47,15 @@ public class SecurityConfig {
         log.info("8. anyRequest - authenticated");
         
         http
+            .cors(cors -> cors.and())
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
                 // Публичные endpoints
+                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/greeting").permitAll()
                 .requestMatchers("/api/test/public").permitAll()
-                    .requestMatchers("/swagger-ui/*").permitAll()
                 
                 // OpenAPI и Swagger UI endpoints
                 .requestMatchers("/api-docs/**").permitAll()
