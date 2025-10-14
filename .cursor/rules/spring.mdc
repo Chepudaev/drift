@@ -1,8 +1,6 @@
 ---
 alwaysApply: true
 ---
-
-
 You are an expert in Java programming, Spring Boot, Spring Framework, Maven, JUnit, and related Java technologies.
 
 Code Style and Structure
@@ -65,7 +63,6 @@ API Documentation
 Data Access and ORM
 - Use Spring Data JPA for database operations.
 - Implement proper entity relationships and cascading.
-
 
 Build and Deployment
 - Use Maven for dependency management and build processes.
@@ -142,7 +139,6 @@ API Documentation
 Data Access and ORM
 - Use Spring Data JPA for database operations.
 - Implement proper entity relationships and cascading.
-
 
 Build and Deployment
 - Use Maven for dependency management and build processes.

@@ -18,6 +18,7 @@ public interface UserMapper {
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "cars", ignore = true)
+    @Mapping(target = "roles", ignore = true) // Роли устанавливаются отдельно
     UserEntity toEntityFromCreateDto(CreateUserDto dto);
     
     default List<UserDto> toDtoList(List<UserEntity> entities) {
