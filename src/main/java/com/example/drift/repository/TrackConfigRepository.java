@@ -8,3 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface TrackConfigRepository extends JpaRepository<TrackConfigEntity, Long> {
 }
 
+
+
+

@@ -87,3 +87,6 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 }
+
+
+

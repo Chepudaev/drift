@@ -5,3 +5,6 @@ public class EventNotFoundException extends RuntimeException {
         super(message);
     }
 }
+
+
+
