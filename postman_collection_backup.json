@@ -715,27 +715,6 @@
 					"response": []
 				},
 				{
-					"name": "Get Track Configs by Track ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/tracks/1/configs",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"tracks",
-								"1",
-								"configs"
-							]
-						},
-						"description": "Получить все конфигурации конкретного трека по его ID"
-					},
-					"response": []
-				},
-				{
 					"name": "Create Track Config",
 					"request": {
 						"method": "POST",
@@ -1549,7 +1528,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"scheduleId\": 1,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\",\n  \"spectatorPrice\": 50.00,\n  \"driverPrice\": 150.00\n}"
+							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"trackId\": 1,\n  \"scheduleId\": 1,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\",\n  \"spectatorPrice\": 50.00,\n  \"driverPrice\": 150.00\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/events",
@@ -1561,7 +1540,7 @@
 								"events"
 							]
 						},
-						"description": "Создать новое событие (без trackId - трасса указывается через EventTrackConfig)"
+						"description": "Создать новое событие"
 					},
 					"response": []
 				},
@@ -1577,7 +1556,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"date\": \"2024-03-16\",\n  \"driverLimit\": 25,\n  \"spectatorLimit\": 150,\n  \"eventType\": \"Обновленное дрифт-соревнование\",\n  \"spectatorPrice\": 75.00,\n  \"driverPrice\": 200.00\n}"
+							"raw": "{\n  \"date\": \"2024-03-16\",\n  \"trackId\": 1,\n  \"scheduleId\": 1,\n  \"driverLimit\": 25,\n  \"spectatorLimit\": 150,\n  \"eventType\": \"Обновленное дрифт-соревнование\",\n  \"spectatorPrice\": 75.00,\n  \"driverPrice\": 200.00\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/events/1",
@@ -1590,7 +1569,7 @@
 								"1"
 							]
 						},
-						"description": "Обновить событие (без trackId - трасса обновляется через EventTrackConfig)"
+						"description": "Обновить событие"
 					},
 					"response": []
 				},
@@ -1927,27 +1906,6 @@
 							]
 						},
 						"description": "Тест ошибки 404 для несуществующей конфигурации трассы"
-					},
-					"response": []
-				},
-				{
-					"name": "Get Track Configs by Non-existent Track ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/tracks/999/configs",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"tracks",
-								"999",
-								"configs"
-							]
-						},
-						"description": "Тест ошибки 404 для получения конфигураций несуществующего трека"
 					},
 					"response": []
 				},
@@ -2317,7 +2275,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"date\": null,\n  \"scheduleId\": null,\n  \"driverLimit\": -1,\n  \"spectatorLimit\": -5,\n  \"eventType\": \"\",\n  \"spectatorPrice\": -10.00,\n  \"driverPrice\": -50.00\n}"
+							"raw": "{\n  \"date\": null,\n  \"trackId\": null,\n  \"scheduleId\": null,\n  \"driverLimit\": -1,\n  \"spectatorLimit\": -5,\n  \"eventType\": \"\",\n  \"spectatorPrice\": -10.00,\n  \"driverPrice\": -50.00\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/events",
@@ -2334,6 +2292,34 @@
 					"response": []
 				},
 				{
+					"name": "Create Event with Non-existent Track",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"trackId\": 999,\n  \"scheduleId\": 1,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\",\n  \"spectatorPrice\": 50.00,\n  \"driverPrice\": 150.00\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						},
+						"description": "Тест создания события с несуществующей трассой"
+					},
+					"response": []
+				},
+				{
 					"name": "Create Event with Non-existent Schedule",
 					"request": {
 						"method": "POST",
@@ -2345,7 +2331,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"scheduleId\": 999,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\",\n  \"spectatorPrice\": 50.00,\n  \"driverPrice\": 150.00\n}"
+							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"trackId\": 1,\n  \"scheduleId\": 999,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\",\n  \"spectatorPrice\": 50.00,\n  \"driverPrice\": 150.00\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/events",

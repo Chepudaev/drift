@@ -24,8 +24,6 @@ public class EventDto {
     @NotNull(message = "Дата события обязательна для заполнения")
     private LocalDate date;
 
-    private TrackDto track;
-
     private List<FaceToFaceDto> faceToFaceEntities;
 
     private ScheduleDto schedule;

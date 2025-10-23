@@ -135,6 +135,17 @@ public class TrackController {
         return ResponseEntity.ok(config);
     }
 
+    @Operation(summary = "Получить все конфигурации трека по ID трека", description = "Возвращает список всех конфигураций для указанного трека")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Список конфигураций трека"),
+            @ApiResponse(responseCode = "404", description = "Трек не найден", content = @Content)
+    })
+    @GetMapping("/{trackId}/configs")
+    public ResponseEntity<List<TrackConfigDto>> getTrackConfigsByTrackId(@PathVariable Long trackId) {
+        List<TrackConfigDto> configs = trackConfigService.getTrackConfigsByTrackId(trackId);
+        return ResponseEntity.ok(configs);
+    }
+
     @Operation(summary = "Создать конфигурацию трека", description = "Создает новую конфигурацию трека")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Конфигурация создана",

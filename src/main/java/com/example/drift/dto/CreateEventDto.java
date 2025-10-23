@@ -21,10 +21,6 @@ public class CreateEventDto {
     @NotNull(message = "Дата события обязательна для заполнения")
     private LocalDate date;
 
-    @NotNull(message = "ID трассы обязателен для заполнения")
-    private Long trackId;
-
-    @NotNull(message = "ID расписания обязательно для заполнения")
     private Long scheduleId;
 
     @Min(value = 1, message = "Лимит водителей должен быть не менее 1")

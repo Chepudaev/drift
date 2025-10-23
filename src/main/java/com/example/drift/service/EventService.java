@@ -24,7 +24,6 @@ import java.util.List;
 public class EventService {
 
     private final EventRepository eventRepository;
-    private final TrackRepository trackRepository;
     private final ScheduleRepository scheduleRepository;
     private final EventMapper eventMapper;
 
@@ -42,16 +41,19 @@ public class EventService {
     }
 
     public EventDto createEvent(CreateEventDto createEventDto) {
-        // Проверяем существование трассы
-        TrackEntity track = trackRepository.findById(createEventDto.getTrackId())
-                .orElseThrow(() -> new TrackNotFoundException("Трасса с ID " + createEventDto.getTrackId() + " не найдена"));
-
+        ScheduleEntity schedule;
+        if (createEventDto.getScheduleId() == null) {
+            schedule = null;
+        } else {
+            schedule = scheduleRepository.findById(createEventDto.getScheduleId())
+                    .orElseThrow(() -> new ScheduleNotFoundException("Расписание с ID " + createEventDto.getScheduleId() + " не найдено"));
+        }
         // Проверяем существование расписания
-        ScheduleEntity schedule = scheduleRepository.findById(createEventDto.getScheduleId())
-                .orElseThrow(() -> new ScheduleNotFoundException("Расписание с ID " + createEventDto.getScheduleId() + " не найдено"));
+//        ScheduleEntity schedule = scheduleRepository.findById(createEventDto.getScheduleId())
+//                .orElse(null);
+//                .orElseThrow(() -> new ScheduleNotFoundException("Расписание с ID " + createEventDto.getScheduleId() + " не найдено"));
 
         EventEntity event = eventMapper.toEntity(createEventDto);
-        event.setTrack(track);
         event.setSchedule(schedule);
 
         EventEntity savedEvent = eventRepository.save(event);
@@ -87,6 +89,7 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 }
+
 
 
 

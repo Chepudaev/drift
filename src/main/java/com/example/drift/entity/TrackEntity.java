@@ -38,6 +38,9 @@ public class TrackEntity {
     @Column(name = "notes")
     private String notes;
 
-    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TrackConfigEntity> trackConfigs;
+
+    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<EventTrackConfigEntity> eventTrackConfigs;
 }

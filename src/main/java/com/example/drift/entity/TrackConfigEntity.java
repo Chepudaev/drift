@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "track_configs")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -26,5 +28,7 @@ public class TrackConfigEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "track_id", nullable = false)
     private TrackEntity track;
-}
 
+    @OneToMany(mappedBy = "trackConfig", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<EventTrackConfigEntity> eventTrackConfigs;
+}

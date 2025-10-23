@@ -37,6 +37,17 @@ public class TrackConfigService {
         return trackMapper.toDto(config);
     }
 
+    @Transactional(readOnly = true)
+    public List<TrackConfigDto> getTrackConfigsByTrackId(Long trackId) {
+        // Проверяем, что трек существует
+        if (!trackRepository.existsById(trackId)) {
+            throw new TrackNotFoundException("Трасса с ID " + trackId + " не найдена");
+        }
+        
+        List<TrackConfigEntity> configs = trackConfigRepository.findByTrackId(trackId);
+        return trackMapper.toConfigDtoList(configs);
+    }
+
     public TrackConfigDto createTrackConfig(CreateTrackConfigDto createTrackConfigDto) {
         // Проверяем, что трасса существует
         TrackEntity track = trackRepository.findById(createTrackConfigDto.getTrackId())
@@ -74,6 +85,10 @@ public class TrackConfigService {
         trackConfigRepository.deleteById(id);
     }
 }
+
+
+
+
 
 
 

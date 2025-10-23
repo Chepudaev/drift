@@ -31,17 +31,11 @@ public class EventEntity {
     @NotNull(message = "Дата события обязательна для заполнения")
     private LocalDate date;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "track_id", nullable = false)
-    @NotNull(message = "Трасса обязательна для заполнения")
-    private TrackEntity track;
-
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FaceToFaceEntity> faceToFaceEntities;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schedule_id", nullable = false)
-    @NotNull(message = "Расписание обязательно для заполнения")
+    @JoinColumn(name = "schedule_id", nullable = true)
     private ScheduleEntity schedule;
 
     @Column(name = "driver_limit", nullable = false)
@@ -67,4 +61,7 @@ public class EventEntity {
     @NotNull(message = "Цена для водителей обязательна для заполнения")
     @DecimalMin(value = "0.0", message = "Цена для водителей должна быть не менее 0")
     private BigDecimal driverPrice;
+
+    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private EventTrackConfigEntity eventTrackConfig;
 }
