@@ -872,7 +872,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"startTime\": \"10:30AM\",\n  \"userPhoto1\": \"https://example.com/user1_photo.jpg\",\n  \"userPhoto2\": \"https://example.com/user2_photo.jpg\",\n  \"user1Id\": 1,\n  \"user2Id\": 2,\n  \"autoPhoto1\": \"https://example.com/auto1_photo.jpg\",\n  \"autoPhoto2\": \"https://example.com/auto2_photo.jpg\",\n  \"autoUser1Id\": 1,\n  \"autoUser2Id\": 2\n}"
+							"raw": "{\n  \"startTime\": \"10:30AM\",\n  \"userPhoto1\": \"https://example.com/user1_photo.jpg\",\n  \"userPhoto2\": \"https://example.com/user2_photo.jpg\",\n  \"user1Id\": 1,\n  \"user2Id\": 2,\n  \"autoPhoto1\": \"https://example.com/auto1_photo.jpg\",\n  \"autoPhoto2\": \"https://example.com/auto2_photo.jpg\",\n  \"autoUser1Id\": 1,\n  \"autoUser2Id\": 2,\n  \"eventId\": 1\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/face-to-face",
@@ -884,7 +884,7 @@
 								"face-to-face"
 							]
 						},
-						"description": "Создать новое FaceToFace"
+						"description": "Создать новое FaceToFace (eventId обязателен, startTime опционален)"
 					},
 					"response": []
 				},
@@ -2074,7 +2074,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"startTime\": \"\",\n  \"userPhoto1\": \"\",\n  \"userPhoto2\": \"\",\n  \"user1Id\": null,\n  \"user2Id\": null,\n  \"autoPhoto1\": \"\",\n  \"autoPhoto2\": \"\",\n  \"autoUser1Id\": null,\n  \"autoUser2Id\": null\n}"
+							"raw": "{\n  \"startTime\": \"\",\n  \"userPhoto1\": \"\",\n  \"userPhoto2\": \"\",\n  \"user1Id\": null,\n  \"user2Id\": null,\n  \"autoPhoto1\": \"\",\n  \"autoPhoto2\": \"\",\n  \"autoUser1Id\": null,\n  \"autoUser2Id\": null,\n  \"eventId\": null\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/face-to-face",
@@ -2086,7 +2086,7 @@
 								"face-to-face"
 							]
 						},
-						"description": "Тест валидации с некорректными данными FaceToFace"
+						"description": "Тест валидации с некорректными данными FaceToFace (eventId обязателен)"
 					},
 					"response": []
 				},

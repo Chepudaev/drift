@@ -45,6 +45,7 @@ public interface FaceToFaceMapper {
     @Mapping(target = "user2", ignore = true)
     @Mapping(target = "autoUser1", ignore = true)
     @Mapping(target = "autoUser2", ignore = true)
+    @Mapping(target = "event", ignore = true)
     FaceToFaceEntity toEntity(CreateFaceToFaceDto dto);
     
     @Mapping(target = "faceToFaceId", source = "faceToFace.id")

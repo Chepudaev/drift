@@ -2,7 +2,6 @@ package com.example.drift.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +20,7 @@ public class FaceToFaceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "start_time", nullable = false)
-    @NotBlank(message = "Время начала обязательно для заполнения")
+    @Column(name = "start_time")
     private String startTime;
 
     @Column(name = "user_photo1")
@@ -54,7 +52,7 @@ public class FaceToFaceEntity {
     private CarEntity autoUser2;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", nullable = false)
     private EventEntity event;
 
     @OneToMany(mappedBy = "faceToFace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

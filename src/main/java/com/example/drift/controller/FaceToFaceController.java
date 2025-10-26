@@ -59,11 +59,14 @@ public class FaceToFaceController {
         return ResponseEntity.ok(faceToFace);
     }
 
-    @Operation(summary = "Создать Face-to-Face соревнование", description = "Создает новое прямое соревнование")
+    @Operation(
+            summary = "Создать Face-to-Face соревнование", 
+            description = "Создает новое прямое соревнование. Обязательное поле: eventId. Все остальные поля опциональны."
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Соревнование создано",
                     content = @Content(schema = @Schema(implementation = FaceToFaceDto.class))),
-            @ApiResponse(responseCode = "400", description = "Неверные данные", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Неверные данные (например, отсутствует eventId)", content = @Content)
     })
     @PostMapping
     public ResponseEntity<FaceToFaceDto> createFaceToFace(@Valid @RequestBody CreateFaceToFaceDto createFaceToFaceDto) {

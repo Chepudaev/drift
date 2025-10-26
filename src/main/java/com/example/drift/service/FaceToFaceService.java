@@ -56,6 +56,11 @@ public class FaceToFaceService {
     public FaceToFaceDto createFaceToFace(CreateFaceToFaceDto createFaceToFaceDto) {
         FaceToFaceEntity faceToFace = faceToFaceMapper.toEntity(createFaceToFaceDto);
         
+        // EventId обязателен для заполнения
+        EventEntity event = eventRepository.findById(createFaceToFaceDto.getEventId())
+                .orElseThrow(() -> new RuntimeException("Событие с ID " + createFaceToFaceDto.getEventId() + " не найдено"));
+        faceToFace.setEvent(event);
+        
         // Устанавливаем связанные сущности если указаны ID
         if (createFaceToFaceDto.getUser1Id() != null) {
             UserEntity user1 = userRepository.findById(createFaceToFaceDto.getUser1Id())
