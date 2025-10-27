@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка и обрезка изображений</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: #f0f2ff;
+        }
+
+        .upload-area.dragover {
+            border-color: #764ba2;
+            background: #e8ebff;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .file-info {
+            color: #999;
+            font-size: 14px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .preview-container {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .preview-container.active {
+            display: block;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-image {
+            max-width: 200px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+        }
+
+        .result-url {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            word-break: break-all;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .circular-mask-preview {
+            position: relative;
+            overflow: hidden;
+            margin: 20px auto;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px #667eea, 0 0 0 8px white, 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .circular-mask-preview img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📸 Загрузка аватарки</h1>
+        
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📁</div>
+            <div class="upload-text">Нажмите или перетащите изображение сюда</div>
+            <div class="file-info">PNG, JPG, WEBP до 10MB</div>
+        </div>
+        
+        <input type="file" id="fileInput" accept="image/*">
+        
+        <div class="preview-container" id="previewContainer">
+            <div class="circular-mask-preview" id="circularPreview"></div>
+            <div class="controls">
+                <button class="btn-secondary" onclick="resetUpload()">Отмена</button>
+                <button class="btn-primary" onclick="uploadImage()">Загрузить</button>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">Загрузка...</div>
+        
+        <div class="result" id="result">
+            <h3 style="margin-bottom: 15px; color: #333;">✅ Изображение загружено!</h3>
+            <img src="" alt="Result" class="result-image" id="resultImage">
+            <div class="result-url" id="resultUrl"></div>
+            <button class="btn-secondary" onclick="resetUpload()" style="margin-top: 15px;">Загрузить другое</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8080';
+        
+        let currentFile = null;
+
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewContainer = document.getElementById('previewContainer');
+        const circularPreview = document.getElementById('circularPreview');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+        const resultImage = document.getElementById('resultImage');
+        const resultUrl = document.getElementById('resultUrl');
+
+        // Обработка клика на область загрузки
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Обработка выбора файла
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        // Обработка drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        // Обработка файла
+        function handleFile(file) {
+            currentFile = file;
+            
+            // Показываем превью
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '300px';
+                img.style.height = '300px';
+                img.style.objectFit = 'cover';
+                
+                circularPreview.innerHTML = '';
+                circularPreview.appendChild(img);
+                
+                previewContainer.classList.add('active');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Загрузка изображения
+        async function uploadImage() {
+            if (!currentFile) return;
+
+            loading.classList.add('active');
+            
+            const formData = new FormData();
+            formData.append('file', currentFile);
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/upload/image`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Ошибка загрузки');
+                }
+
+                const data = await response.json();
+                
+                // Показываем результат
+                resultImage.src = data.url;
+                resultUrl.textContent = 'URL: ' + data.url;
+                result.classList.add('active');
+                previewContainer.classList.remove('active');
+                loading.classList.remove('active');
+
+            } catch (error) {
+                alert('Ошибка загрузки: ' + error.message);
+                loading.classList.remove('active');
+            }
+        }
+
+        // Сброс загрузки
+        function resetUpload() {
+            currentFile = null;
+            fileInput.value = '';
+            previewContainer.classList.remove('active');
+            result.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
+
