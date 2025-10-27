@@ -3,10 +3,13 @@ package com.example.drift.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import com.example.drift.dto.ImageUploadResponse;
 import com.example.drift.service.ImageProcessingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +29,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -45,13 +46,24 @@ public class ImageUploadController {
 
     private final ImageProcessingService imageProcessingService;
 
-    @Operation(summary = "Загрузить изображение", description = "Загружает изображение на сервер и возвращает URL для использования")
+    @Operation(
+            summary = "Загрузить изображение",
+            description = "Загружает изображение на сервер и возвращает URL для использования. Поддерживаемые форматы: JPG, PNG, GIF, WEBP. Максимальный размер: 10MB."
+    )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Изображение успешно загружено"),
-            @ApiResponse(responseCode = "400", description = "Неверный файл", content = @Content)
+            @ApiResponse(
+                    responseCode = "200", 
+                    description = "Изображение успешно загружено",
+                    content = @Content(schema = @Schema(implementation = ImageUploadResponse.class))
+            ),
+            @ApiResponse(responseCode = "400", description = "Неверный файл или пустой файл", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера", content = @Content)
     })
     @PostMapping(value = "/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ImageUploadResponse> uploadImage(
+            @Parameter(description = "Файл изображения для загрузки", required = true)
+            @RequestParam("file") MultipartFile file
+    ) {
         try {
             // Валидация файла
             if (file.isEmpty()) {
@@ -81,9 +93,7 @@ public class ImageUploadController {
             // Формирование URL
             String fileUrl = baseUrl + "/api/files/" + filename;
 
-            Map<String, String> response = new HashMap<>();
-            response.put("url", fileUrl);
-            response.put("filename", filename);
+            ImageUploadResponse response = new ImageUploadResponse(fileUrl, filename);
 
             return ResponseEntity.ok(response);
 
@@ -92,9 +102,19 @@ public class ImageUploadController {
         }
     }
 
-    @Operation(summary = "Получить изображение", description = "Возвращает изображение по имени файла")
+    @Operation(
+            summary = "Получить изображение",
+            description = "Возвращает изображение по имени файла. Используется для отображения загруженных изображений."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Изображение найдено"),
+            @ApiResponse(responseCode = "404", description = "Файл не найден", content = @Content)
+    })
     @GetMapping("/files/{filename:.+}")
-    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+    public ResponseEntity<Resource> getFile(
+            @Parameter(description = "Имя файла изображения", required = true, example = "abc123.jpg")
+            @PathVariable String filename
+    ) {
         try {
             Path filePath = Paths.get(uploadDir).resolve(filename).normalize();
             Resource resource = new UrlResource(filePath.toUri());
@@ -113,9 +133,20 @@ public class ImageUploadController {
         }
     }
 
-    @Operation(summary = "Удалить изображение", description = "Удаляет изображение с сервера")
+    @Operation(
+            summary = "Удалить изображение",
+            description = "Удаляет изображение с сервера по имени файла"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Изображение успешно удалено"),
+            @ApiResponse(responseCode = "404", description = "Файл не найден", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера", content = @Content)
+    })
     @DeleteMapping("/files/{filename:.+}")
-    public ResponseEntity<Void> deleteFile(@PathVariable String filename) {
+    public ResponseEntity<Void> deleteFile(
+            @Parameter(description = "Имя файла изображения для удаления", required = true, example = "abc123.jpg")
+            @PathVariable String filename
+    ) {
         try {
             Path filePath = Paths.get(uploadDir).resolve(filename).normalize();
             Files.deleteIfExists(filePath);
@@ -125,19 +156,35 @@ public class ImageUploadController {
         }
     }
 
-    @Operation(summary = "Обрезать и обработать изображение", 
-               description = "Обрезает изображение и при необходимости делает его круглым (как аватар)")
+    @Operation(
+            summary = "Обрезать и обработать изображение",
+            description = "Обрезает изображение и при необходимости делает его круглым (как аватар). " +
+                         "Можно использовать два режима:\n" +
+                         "1. Круглый аватар (circular=true) - автоматически создает круглое изображение\n" +
+                         "2. Прямоугольная обрезка - указать координаты x, y и размеры width, height"
+    )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Изображение успешно обработано"),
-            @ApiResponse(responseCode = "400", description = "Неверные параметры", content = @Content)
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Изображение успешно обработано",
+                    content = @Content(schema = @Schema(implementation = ImageUploadResponse.class))
+            ),
+            @ApiResponse(responseCode = "400", description = "Неверные параметры или формат файла", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера", content = @Content)
     })
     @PostMapping(value = "/crop", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Map<String, String>> cropImage(
+    public ResponseEntity<ImageUploadResponse> cropImage(
+            @Parameter(description = "Файл изображения для обработки", required = true)
             @RequestParam("file") MultipartFile file,
+            @Parameter(description = "Координата X левого верхнего угла области обрезки", example = "0")
             @RequestParam(value = "x", defaultValue = "0") int x,
+            @Parameter(description = "Координата Y левого верхнего угла области обрезки", example = "0")
             @RequestParam(value = "y", defaultValue = "0") int y,
+            @Parameter(description = "Ширина области обрезки (требуется для прямоугольной обрезки)", example = "400")
             @RequestParam(value = "width", required = false) Integer width,
+            @Parameter(description = "Высота области обрезки (требуется для прямоугольной обрезки)", example = "400")
             @RequestParam(value = "height", required = false) Integer height,
+            @Parameter(description = "Создать круглое изображение (аватар). Если true, параметры x, y, width, height игнорируются", example = "false")
             @RequestParam(value = "circular", defaultValue = "false") boolean circular
     ) {
         try {
@@ -171,9 +218,7 @@ public class ImageUploadController {
             // Формируем URL
             String fileUrl = baseUrl + "/api/files/" + filename;
 
-            Map<String, String> response = new HashMap<>();
-            response.put("url", fileUrl);
-            response.put("filename", filename);
+            ImageUploadResponse response = new ImageUploadResponse(fileUrl, filename);
 
             return ResponseEntity.ok(response);
 
