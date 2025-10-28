@@ -57,6 +57,10 @@ public class SecurityConfig {
                 .requestMatchers("/api/greeting").permitAll()
                 .requestMatchers("/api/test/public").permitAll()
                 
+                // Файлы должны быть публично доступны
+                .requestMatchers("/api/files/**").permitAll()
+                .requestMatchers("GET", "/api/files/**").permitAll()
+                
                 // OpenAPI и Swagger UI endpoints
                 .requestMatchers("/api-docs/**").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll()

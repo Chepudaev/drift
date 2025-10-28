@@ -31,6 +31,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
+@CrossOrigin(origins = {"http://localhost:63342", "http://127.0.0.1:63342"},
+        allowCredentials = "true")
 @RestController
 @RequestMapping("/api/upload")
 @RequiredArgsConstructor
@@ -99,37 +101,6 @@ public class ImageUploadController {
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @Operation(
-            summary = "Получить изображение",
-            description = "Возвращает изображение по имени файла. Используется для отображения загруженных изображений."
-    )
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Изображение найдено"),
-            @ApiResponse(responseCode = "404", description = "Файл не найден", content = @Content)
-    })
-    @GetMapping("/files/{filename:.+}")
-    public ResponseEntity<Resource> getFile(
-            @Parameter(description = "Имя файла изображения", required = true, example = "abc123.jpg")
-            @PathVariable String filename
-    ) {
-        try {
-            Path filePath = Paths.get(uploadDir).resolve(filename).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-
-            if (resource.exists() && resource.isReadable()) {
-                String contentType = determineContentType(filename);
-                return ResponseEntity.ok()
-                        .contentType(MediaType.parseMediaType(contentType))
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
-                        .body(resource);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (MalformedURLException e) {
-            return ResponseEntity.notFound().build();
         }
     }
 
