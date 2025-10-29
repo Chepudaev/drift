@@ -581,7 +581,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"state\": \"Калифорния\",\n  \"address\": \"123 Drift Street, Los Angeles, CA 90210\",\n  \"thumbnailUrl\": \"https://example.com/track_thumbnail.jpg\",\n  \"instructionUrl\": \"https://example.com/track_instructions.pdf\",\n  \"notes\": \"Отличная трасса для начинающих дрифтеров\"\n}"
+							"raw": "{\n  \"state\": \"Калифорния\",\n  \"address\": \"123 Drift Street, Los Angeles, CA 90210\",\n  \"thumbnailUrl\": \"https://example.com/track_thumbnail.jpg\",\n  \"instructionUrl\": \"https://example.com/track_instructions.pdf\",\n  \"notes\": \"Отличная трасса для начинающих дрифтеров\",\n  \"mainMapMobileUrl\": \"https://example.com/track_mobile_map.jpg\",\n  \"mainMapWebUrl\": \"https://example.com/track_web_map.jpg\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/tracks",
@@ -609,7 +609,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"state\": \"Калифорния\",\n  \"address\": \"123 Drift Street, Los Angeles, CA 90210\",\n  \"thumbnailUrl\": \"https://example.com/track_thumbnail_updated.jpg\",\n  \"instructionUrl\": \"https://example.com/track_instructions_updated.pdf\",\n  \"notes\": \"Обновленная трасса для продвинутых дрифтеров\"\n}"
+							"raw": "{\n  \"state\": \"Калифорния\",\n  \"address\": \"123 Drift Street, Los Angeles, CA 90210\",\n  \"thumbnailUrl\": \"https://example.com/track_thumbnail_updated.jpg\",\n  \"instructionUrl\": \"https://example.com/track_instructions_updated.pdf\",\n  \"notes\": \"Обновленная трасса для продвинутых дрифтеров\",\n  \"mainMapMobileUrl\": \"https://example.com/track_mobile_map_updated.jpg\",\n  \"mainMapWebUrl\": \"https://example.com/track_web_map_updated.jpg\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/tracks/1",

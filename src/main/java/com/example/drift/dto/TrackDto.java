@@ -29,7 +29,12 @@ public class TrackDto {
     private String instructionUrl;
 
     private String notes;
+
+    private String mainMapMobileUrl;
+
+    private String mainMapWebUrl;
 }
+
 
 
 

@@ -23,7 +23,12 @@ public class CreateTrackDto {
     private String instructionUrl;
 
     private String notes;
+
+    private String mainMapMobileUrl;
+
+    private String mainMapWebUrl;
 }
+
 
 
 

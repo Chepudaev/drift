@@ -70,6 +70,12 @@ public class TrackService {
         if (trackDto.getNotes() != null) {
             existingTrack.setNotes(trackDto.getNotes());
         }
+        if (trackDto.getMainMapMobileUrl() != null) {
+            existingTrack.setMainMapMobileUrl(trackDto.getMainMapMobileUrl());
+        }
+        if (trackDto.getMainMapWebUrl() != null) {
+            existingTrack.setMainMapWebUrl(trackDto.getMainMapWebUrl());
+        }
 
         TrackEntity updatedTrack = trackRepository.save(existingTrack);
         return trackMapper.toDto(updatedTrack);
@@ -93,6 +99,8 @@ public class TrackService {
         copiedTrack.setThumbnailUrl(originalTrack.getThumbnailUrl());
         copiedTrack.setInstructionUrl(originalTrack.getInstructionUrl());
         copiedTrack.setNotes(originalTrack.getNotes());
+        copiedTrack.setMainMapMobileUrl(originalTrack.getMainMapMobileUrl());
+        copiedTrack.setMainMapWebUrl(originalTrack.getMainMapWebUrl());
 
         TrackEntity savedTrack = trackRepository.save(copiedTrack);
         return trackMapper.toDto(savedTrack);

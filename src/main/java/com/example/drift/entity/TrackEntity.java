@@ -38,6 +38,12 @@ public class TrackEntity {
     @Column(name = "notes")
     private String notes;
 
+    @Column(name = "main_map_mobile_url")
+    private String mainMapMobileUrl;
+
+    @Column(name = "main_map_web_url")
+    private String mainMapWebUrl;
+
     @OneToMany(mappedBy = "track", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TrackConfigEntity> trackConfigs;
 
