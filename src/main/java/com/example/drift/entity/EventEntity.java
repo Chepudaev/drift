@@ -62,6 +62,15 @@ public class EventEntity {
     @DecimalMin(value = "0.0", message = "Цена для водителей должна быть не менее 0")
     private BigDecimal driverPrice;
 
+    @Column(name = "mobile_event_banner_url")
+    private String mobileEventBannerUrl;
+
+    @Column(name = "browser_event_banner_url")
+    private String browserEventBannerUrl;
+
+    @Column(name = "event_list_thumbnail_url")
+    private String eventListThumbnailUrl;
+
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private EventTrackConfigEntity eventTrackConfig;
 }

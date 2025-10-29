@@ -77,6 +77,21 @@ public class EventService {
         if (eventDto.getEventType() != null) {
             existingEvent.setEventType(eventDto.getEventType());
         }
+        if (eventDto.getSpectatorPrice() != null) {
+            existingEvent.setSpectatorPrice(eventDto.getSpectatorPrice());
+        }
+        if (eventDto.getDriverPrice() != null) {
+            existingEvent.setDriverPrice(eventDto.getDriverPrice());
+        }
+        if (eventDto.getMobileEventBannerUrl() != null) {
+            existingEvent.setMobileEventBannerUrl(eventDto.getMobileEventBannerUrl());
+        }
+        if (eventDto.getBrowserEventBannerUrl() != null) {
+            existingEvent.setBrowserEventBannerUrl(eventDto.getBrowserEventBannerUrl());
+        }
+        if (eventDto.getEventListThumbnailUrl() != null) {
+            existingEvent.setEventListThumbnailUrl(eventDto.getEventListThumbnailUrl());
+        }
 
         EventEntity updatedEvent = eventRepository.save(existingEvent);
         return eventMapper.toDto(updatedEvent);

@@ -1549,7 +1549,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"scheduleId\": 1,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\",\n  \"spectatorPrice\": 50.00,\n  \"driverPrice\": 150.00\n}"
+							"raw": "{\n  \"date\": \"2024-03-15\",\n  \"scheduleId\": 1,\n  \"driverLimit\": 20,\n  \"spectatorLimit\": 100,\n  \"eventType\": \"Дрифт-соревнование\",\n  \"spectatorPrice\": 50.00,\n  \"driverPrice\": 150.00,\n  \"mobileEventBannerUrl\": \"https://example.com/mobile_banner.jpg\",\n  \"browserEventBannerUrl\": \"https://example.com/browser_banner.jpg\",\n  \"eventListThumbnailUrl\": \"https://example.com/event_thumbnail.jpg\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/events",
@@ -1577,7 +1577,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"date\": \"2024-03-16\",\n  \"driverLimit\": 25,\n  \"spectatorLimit\": 150,\n  \"eventType\": \"Обновленное дрифт-соревнование\",\n  \"spectatorPrice\": 75.00,\n  \"driverPrice\": 200.00\n}"
+							"raw": "{\n  \"date\": \"2024-03-16\",\n  \"driverLimit\": 25,\n  \"spectatorLimit\": 150,\n  \"eventType\": \"Обновленное дрифт-соревнование\",\n  \"spectatorPrice\": 75.00,\n  \"driverPrice\": 200.00,\n  \"mobileEventBannerUrl\": \"https://example.com/mobile_banner_updated.jpg\",\n  \"browserEventBannerUrl\": \"https://example.com/browser_banner_updated.jpg\",\n  \"eventListThumbnailUrl\": \"https://example.com/event_thumbnail_updated.jpg\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/events/1",

@@ -41,4 +41,10 @@ public class CreateEventDto {
     @NotNull(message = "Цена для водителей обязательна для заполнения")
     @DecimalMin(value = "0.0", message = "Цена для водителей должна быть не менее 0")
     private BigDecimal driverPrice;
+
+    private String mobileEventBannerUrl;
+
+    private String browserEventBannerUrl;
+
+    private String eventListThumbnailUrl;
 }
