@@ -4,6 +4,7 @@ import com.example.drift.dto.CreateTrackConfigDto;
 import com.example.drift.dto.CreateTrackDto;
 import com.example.drift.dto.TrackConfigDto;
 import com.example.drift.dto.TrackDto;
+import com.example.drift.dto.UpdateTrackConfigDto;
 import com.example.drift.service.TrackConfigService;
 import com.example.drift.service.TrackService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -168,6 +169,19 @@ public class TrackController {
     @PutMapping("/configs/{id}")
     public ResponseEntity<TrackConfigDto> updateTrackConfig(@PathVariable Long id, @Valid @RequestBody TrackConfigDto trackConfigDto) {
         TrackConfigDto updatedConfig = trackConfigService.updateTrackConfig(id, trackConfigDto);
+        return ResponseEntity.ok(updatedConfig);
+    }
+
+    @Operation(summary = "Частично обновить конфигурацию трека", description = "Частично обновляет поля конфигурации трека")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Конфигурация обновлена",
+                    content = @Content(schema = @Schema(implementation = TrackConfigDto.class))),
+            @ApiResponse(responseCode = "404", description = "Конфигурация не найдена", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Неверные данные", content = @Content)
+    })
+    @PatchMapping("/configs/{id}")
+    public ResponseEntity<TrackConfigDto> patchTrackConfig(@PathVariable Long id, @RequestBody UpdateTrackConfigDto updateDto) {
+        TrackConfigDto updatedConfig = trackConfigService.patchTrackConfig(id, updateDto);
         return ResponseEntity.ok(updatedConfig);
     }
 

@@ -18,7 +18,14 @@ public class TrackConfigDto {
     private String config;
 
     private Long trackId;
+
+    private String mainMapConfigMobileUrl;
+
+    private String mainMapConfigWebUrl;
 }
+
+
+
 
 
 

@@ -25,6 +25,12 @@ public class TrackConfigEntity {
     @NotBlank(message = "Конфигурация трассы обязательна для заполнения")
     private String config;
 
+    @Column(name = "main_map_config_mobile_url")
+    private String mainMapConfigMobileUrl;
+
+    @Column(name = "main_map_config_web_url")
+    private String mainMapConfigWebUrl;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "track_id", nullable = false)
     private TrackEntity track;

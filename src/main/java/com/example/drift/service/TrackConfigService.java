@@ -2,6 +2,7 @@ package com.example.drift.service;
 
 import com.example.drift.dto.CreateTrackConfigDto;
 import com.example.drift.dto.TrackConfigDto;
+import com.example.drift.dto.UpdateTrackConfigDto;
 import com.example.drift.entity.TrackConfigEntity;
 import com.example.drift.entity.TrackEntity;
 import com.example.drift.exception.TrackConfigNotFoundException;
@@ -66,6 +67,8 @@ public class TrackConfigService {
 
         // Обновляем конфигурацию
         existingConfig.setConfig(trackConfigDto.getConfig());
+        existingConfig.setMainMapConfigMobileUrl(trackConfigDto.getMainMapConfigMobileUrl());
+        existingConfig.setMainMapConfigWebUrl(trackConfigDto.getMainMapConfigWebUrl());
 
         // Если указан новый trackId, проверяем его существование и обновляем связь
         if (trackConfigDto.getTrackId() != null) {
@@ -74,7 +77,7 @@ public class TrackConfigService {
             existingConfig.setTrack(track);
         }
 
-        TrackConfigEntity updatedConfig = trackConfigRepository.save(existingConfig);
+        TrackConfigEntity updatedConfig = trackConfigRepository.saveAndFlush(existingConfig);
         return trackMapper.toDto(updatedConfig);
     }
 
@@ -83,6 +86,30 @@ public class TrackConfigService {
             throw new TrackConfigNotFoundException("Конфигурация трассы с ID " + id + " не найдена");
         }
         trackConfigRepository.deleteById(id);
+    }
+
+    @Transactional
+    public TrackConfigDto patchTrackConfig(Long id, UpdateTrackConfigDto updateDto) {
+        TrackConfigEntity existingConfig = trackConfigRepository.findById(id)
+                .orElseThrow(() -> new TrackConfigNotFoundException("Конфигурация трассы с ID " + id + " не найдена"));
+
+        if (updateDto.getConfig() != null) {
+            existingConfig.setConfig(updateDto.getConfig());
+        }
+        if (updateDto.getMainMapConfigMobileUrl() != null) {
+            existingConfig.setMainMapConfigMobileUrl(updateDto.getMainMapConfigMobileUrl());
+        }
+        if (updateDto.getMainMapConfigWebUrl() != null) {
+            existingConfig.setMainMapConfigWebUrl(updateDto.getMainMapConfigWebUrl());
+        }
+        if (updateDto.getTrackId() != null) {
+            TrackEntity track = trackRepository.findById(updateDto.getTrackId())
+                    .orElseThrow(() -> new TrackNotFoundException("Трасса с ID " + updateDto.getTrackId() + " не найдена"));
+            existingConfig.setTrack(track);
+        }
+
+        TrackConfigEntity saved = trackConfigRepository.saveAndFlush(existingConfig);
+        return trackMapper.toDto(saved);
     }
 }
 

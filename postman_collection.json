@@ -484,25 +484,24 @@
 		{
 			"name": "Greeting",
 			"item": [
-				{
-					"name": "Get Greeting",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/greeting",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"greeting"
-							]
-						},
-						"description": "Получить приветственное сообщение"
-					},
-					"response": []
-				}
+                {
+                    "name": "Get Greeting",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api"
+                            ]
+                        },
+                        "description": "Получить приветственное сообщение"
+                    },
+                    "response": []
+                }
 			],
 			"description": "Тестовый endpoint"
 		},
@@ -747,7 +746,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"config\": \"Конфигурация для начинающих: ширина трассы 8м, длина 200м, повороты 90 градусов\",\n  \"trackId\": 1\n}"
+                            "raw": "{\n  \"config\": \"Конфигурация для начинающих: ширина трассы 8м, длина 200м, повороты 90 градусов\",\n  \"trackId\": 1,\n  \"mainMapConfigMobileUrl\": \"https://example.com/config_mobile_map.jpg\",\n  \"mainMapConfigWebUrl\": \"https://example.com/config_web_map.jpg\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/tracks/configs",
@@ -776,7 +775,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"config\": \"Обновленная конфигурация для продвинутых: ширина трассы 6м, длина 300м, повороты 180 градусов\",\n  \"trackId\": 1\n}"
+							"raw": "{\n  \"config\": \"Обновленная конфигурация для продвинутых: ширина трассы 6м, длина 300м, повороты 180 градусов\",\n  \"trackId\": 1,\n  \"mainMapConfigMobileUrl\": \"https://example.com/config_mobile_map_updated.jpg\",\n  \"mainMapConfigWebUrl\": \"https://example.com/config_web_map_updated.jpg\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/tracks/configs/1",
@@ -791,6 +790,36 @@
 							]
 						},
 						"description": "Обновить конфигурацию трассы"
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Track Config",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"config\": \"Частичное обновление конфигурации: только часть полей\",\n  \"mainMapConfigWebUrl\": \"https://example.com/config_web_map_patch.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tracks/configs/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tracks",
+								"configs",
+								"1"
+							]
+						},
+						"description": "Частично обновить конфигурацию трассы"
 					},
 					"response": []
 				},
